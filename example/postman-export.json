@@ -1,0 +1,274 @@
+{
+  "info": {
+    "name": "Bridge Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /health",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:42069/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:42069/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "42069",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"status\": \"ok\", \"timestamp\": {{timestamp}} }"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/me",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:42069/api/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "api",
+            "me"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:42069/api/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "42069",
+              "path": [
+                "api",
+                "me"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": 101,\n  \"name\": \"{{name}}\",\n  \"em\": \"{{email}}\",\n  \"bio\": \"{{catchPhrase}}\",\n  \"avatar\": \"https://i.pravatar.cc/150?u={{name}}\"\n}\n"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/users/(\\d+)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:42069/api/users/(\\d+)",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "api",
+            "users",
+            "(\\d+)"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:42069/api/users/(\\d+)",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "42069",
+              "path": [
+                "api",
+                "users",
+                "(\\d+)"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"id\": $1, \"name\": \"{{name}}\", \"type\": \"mocked_user\"}"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/submit",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:42069/api/submit",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "api",
+            "submit"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/heavy-report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:42069/api/heavy-report",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "api",
+            "heavy-report"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:42069/api/heavy-report",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "42069",
+              "path": [
+                "api",
+                "heavy-report"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [],
+          "body": "{\"report_id\": \"REP-992\", \"data\": [10, 20, 30, 40]}"
+        }
+      ]
+    },
+    {
+      "name": "* /api/v2/(.*)",
+      "request": {
+        "method": "*",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:42069/api/v2/(.*)",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "42069",
+          "path": [
+            "api",
+            "v2",
+            "(.*)"
+          ]
+        }
+      }
+    }
+  ]
+}

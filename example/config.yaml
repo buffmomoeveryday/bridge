@@ -1,0 +1,101 @@
+info:
+  title: "Bridge Demo API"
+  version: "1.1.0"
+  description: "Demonstrating Stateful Mocks and JSON Body Matching"
+
+contracts:
+  # 1. Basic Health Check
+  - request:
+      path: "/health"
+      method: "GET"
+    response:
+      status: 200
+      body: '{"status": "up", "timestamp": "{{timestamp}}"}'
+
+  # 2. Stateful Mock: POST to add item, GET to list
+  - request:
+      path: "/items"
+      method: "POST"
+    store:
+      key: "item_list"
+      action: "append"
+      value: '{"id": "{{uuid}}", "data": {{req.body}}}, '
+    response:
+      status: 201
+      body: '{"message": "Item added to store"}'
+
+  - request:
+      path: "/items"
+      method: "GET"
+    response:
+      status: 200
+      body: "[ {{store.item_list}} null ]" # Trailing comma hack for demo
+      headers:
+        Content-Type: "application/json"
+
+  # 3. JSON Body Matching
+  - request:
+      path: "/api/login"
+      method: "POST"
+      match_body:
+        user: "admin"
+        pass: "1234"
+    response:
+      status: 200
+      body: '{"token": "secret_admin_token", "role": "admin"}'
+
+  - request:
+      path: "/api/login"
+      method: "POST"
+    response:
+      status: 401
+      body: '{"error": "Invalid credentials"}'
+
+  # 4. Regex Capture Groups
+  - request:
+      path: '/api/users/(\d+)'
+      is_regex: true
+      method: "GET"
+    response:
+      body: '{"id": $1, "name": "{{name}}", "email": "{{email}}"}'
+
+  # 5. Environment Variables & Proxy
+  - request:
+      path: "/api/v2/(.*)"
+      is_regex: true
+      method: "*"
+    proxy:
+      url: "${UPSTREAM_URL:-https://httpbin.org/anything/}${1}"
+      timeout_ms: 10000
+
+  # 6. Chaos Engineering
+  - request:
+      path: "/api/unstable"
+      method: "GET"
+    error_rate: 0.5
+    responses:
+      - status: 200
+        body: '{"message": "I worked this time!"}'
+      - status: 503
+        body: '{"error": "Service Unavailable (Chaos)"}'
+
+  # 7. Latency Jitter (Variable response time)
+  - request:
+      path: "/api/jitter"
+      method: "GET"
+    response:
+      latency_range: "500-3000"
+      body: '{"message": "I was delayed by a random amount between 0.5s and 3s"}'
+
+  # 8. Slow Throttling (Simulate 3G/Edge)
+  - request:
+      path: "/api/slow"
+      method: "GET"
+    response:
+      throttle_kbps: 10.0 # Very slow: 10KB/s
+      body: |
+        {
+          "title": "The Art of War",
+          "author": "Sun Tzu",
+          "content": "All warfare is based on deception. Hence, when we are able to attack, we must seem unable..."
+        }

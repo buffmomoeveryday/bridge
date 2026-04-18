@@ -1,0 +1,36 @@
+contracts:
+  - request:
+      path: /users
+      method: GET
+    response:
+      status: 200
+      body: "[{\"id\":1,\"name\":\"Alice\"},{\"id\":2,\"name\":\"Bob\"}]"
+      headers:
+        "Content-Type": application/json
+  - request:
+      path: /users/(\d+)
+      method: GET
+      is_regex: true
+    response:
+      status: 200
+      body: "{\"id\":1,\"name\":\"Alice\"}"
+      headers:
+        "Content-Type": application/json
+  - request:
+      path: /users/(\d+)
+      method: PUT
+      is_regex: true
+    response:
+      status: 200
+      body:
+        "{\"status\":\"success\",\"message\":\"User updated successfully\"}"
+      headers:
+        "Content-Type": application/json
+  - request:
+      path: /ping
+      method: GET
+    response:
+      status: 200
+      body: pong
+      headers:
+        "Content-Type": text/plain

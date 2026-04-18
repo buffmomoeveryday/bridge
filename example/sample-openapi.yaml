@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: List all users
+      responses:
+        "200":
+          description: A list of users
+          content:
+            application/json:
+              example:
+                - id: 1
+                  name: Alice
+                - id: 2
+                  name: Bob
+  /users/{id}:
+    get:
+      summary: Get a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A user object
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Alice
+    put:
+      summary: Update a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              example:
+                status: success
+                message: User updated successfully
+  /ping:
+    get:
+      summary: Ping the server
+      responses:
+        "200":
+          description: Pong
+          content:
+            text/plain:
+              example: pong
