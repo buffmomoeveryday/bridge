@@ -1,0 +1,5 @@
+--noNimblePath
+--path:"/home/siddharthakhanal/.nimble/pkgs2/cligen-1.9.6-6fb1c2387a822214526b47b4657ddb98a4e904c0"
+--path:"/home/siddharthakhanal/Desktop/bridge/src"
+--path:"/home/siddharthakhanal/.nimble/pkgs2/yaml-2.2.1-c08b506896c1e44fcabd8455a6047e7a5304b312"
+--path:"/home/siddharthakhanal/.nimble/pkgs2/faker-0.4.0-1675288610558403321"

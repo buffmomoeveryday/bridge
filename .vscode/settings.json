@@ -1,0 +1,21 @@
+{
+  "cSpell.words": [
+    "asyncdispatch",
+    "asynchttpserver",
+    "asyncnet",
+    "Catchable",
+    "cligen",
+    "elems",
+    "elif",
+    "gcsafe",
+    "httpclient",
+    "iban",
+    "noconv",
+    "notin",
+    "sequtils",
+    "strformat",
+    "strutils",
+    "threadvar",
+    "tojson"
+  ]
+}
