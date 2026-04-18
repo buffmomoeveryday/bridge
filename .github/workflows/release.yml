@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Nim
         uses: jiro4989/setup-nim-action@v1
         with:
-          nim-version: '2.2.x'
+          nim-version: "2.2.x"
 
       - name: Install Dependencies
         run: nimble install -y -d
@@ -28,20 +28,41 @@ jobs:
       - name: Build Binary
         run: nimble build -d:release -y
 
-      - name: Rename binaries
+      - name: Rename and Prepare Artifacts
         shell: bash
         run: |
+          mkdir dist
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            mv bridge.exe bridge-${{ matrix.os }}.exe
+            mv bridge.exe dist/bridge-windows-latest.exe
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            mv bridge dist/bridge-macos-latest
           else
-            mv bridge bridge-${{ matrix.os }}
+            mv bridge dist/bridge-ubuntu-latest
           fi
 
-      - name: Release
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bridge-${{ matrix.os }}
+          path: dist/
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            bridge-ubuntu-latest
-            bridge-macos-latest
-            bridge-windows-latest.exe
+            release-assets/bridge-ubuntu-latest
+            release-assets/bridge-macos-latest
+            release-assets/bridge-windows-latest.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
