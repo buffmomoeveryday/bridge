@@ -20,7 +20,7 @@ jobs:
       - name: Setup Nim
         uses: nim-lang/setup-nimble-action@v1
         with:
-          nim-version: '2.2.x'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
         run: nimble install -y -d
