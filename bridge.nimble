@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "Siddhartha Khanal"
-description   = "A reverse proxy cli to help mock api responses"
+description   = "A cli to help mock api responses"
 license       = "MIT"
 srcDir        = "src"
 bin           = @["bridge"]
